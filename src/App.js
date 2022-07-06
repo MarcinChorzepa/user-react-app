@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import React, { useState } from "react";
+import UserList from "./components/UserList";
+import CardItem from "./components/CardItem";
+import InputUser from "./components/InputUser";
+const DUMMY_USERS = [
+  {
+    id: "first1",
+    username: "Max",
+    age: 31,
+  },
+  {
+    id: "second2",
+    username: "Bob",
+    age: 42,
+  },
+]
 function App() {
+  const [listOfUsers, setListOfUsers] = useState(DUMMY_USERS);
+
+  const addUserHandler = (newUser) => {
+    setListOfUsers((prevUsers)=>{
+      return [newUser,...prevUsers];
+    })
+  };
+
+  const onDeleteItemHandler = userId => {
+    setListOfUsers((prevUsers)=>{
+      const updatedUsers = listOfUsers.filter(x=>x.id!==userId);
+      return updatedUsers;
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CardItem className="user-form" >
+        <InputUser addUser={addUserHandler}/>
+      </CardItem>
+
+      <CardItem className="users">
+        <UserList usersData={listOfUsers} deleteItem={onDeleteItemHandler}/>
+      </CardItem>
     </div>
   );
 }
