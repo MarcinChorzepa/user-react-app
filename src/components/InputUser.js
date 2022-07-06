@@ -38,9 +38,10 @@ const InputUser = (props) => {
   return (
     <form onSubmit={onSubmitHandler}>
       <div className={`form-control ${!validToggle ? "invalid" : ""}`}>
-        <label>username</label>
-        <input type="text" onChange={onChangeUsername} value={username}></input>
-        <input type="number" onChange={onChangeAge} value={age}></input>
+        <label htmlFor="username">username</label>
+        <input id="username" type="text" onChange={onChangeUsername} value={username}></input>
+        <label htmlFor="age" >Age</label>
+        <input id="age" type="number" onChange={onChangeAge} value={age}></input>
       </div>
       <button type="submit" className="button">Create user</button>
     </form>
